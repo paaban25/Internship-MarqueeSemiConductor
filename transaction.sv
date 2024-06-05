@@ -1,16 +1,30 @@
-class transaction#(int FIFO_DEPTH = 8, FIFO_WIDTH = 64);
-  bit rand wrclk;
-  bit rand rdclk;
-  bit rand wrst_n;
-  bit rand rrst_n;
-  bit rand wr_en;
-  bit rand rd_en;
-  bit [63:0] rand data_in;
-  bit [63:0] data_out;
+class transaction;
+  localparam int FIFO_DEPTH = 8;
+  localparam int FIFO_WIDTH = 64;
+
+  bit wrclk;
+  bit rdclk;
+  bit wrst_n;
+  bit rrst_n;
+  bit wr_en;
+  bit rd_en;
+  rand bit [FIFO_WIDTH-1:0] data_in;  
+  bit [FIFO_WIDTH-1:0] data_out;
   bit fifo_full;
   bit fifo_empty;
   
-  constraint wr_rd_c { wr_en != rd_en; };
+  
+  
+  
+
+
+  
+  
+//   function void display();
+//     $display("wrst_n=%0b , rrst_n=%0b, wr_en=%0b, rd_en=%0b, data_in=%0h, data_out=%0h, fifo_full=%0b, fifo_empty=%0b " ,wrst_n,rrst_n,wr_en,rd_en,data_in, data_out,fifo_full,fifo_empty);
+//   endfunction
+  
   
 endclass
+
   

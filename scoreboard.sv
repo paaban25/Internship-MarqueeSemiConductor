@@ -4,21 +4,23 @@ class scoreboard;
   int no_transactions;
   
   function new(mailbox mon2scb);
-    //getting the mailbox handles from  environment 
+    
     this.mon2scb = mon2scb;
   endfunction
   
-    //Compares the Actual result with the expected result
+
   task main;
     transaction trans;
     forever begin
       mon2scb.get(trans);
-      if(/* Expected Result is correct logic */)
-          $display("Result is as Expected");
-        else
-          $error("Wrong Result.\n\tExpeced: %0d Actual: %0d");
+      //if(1'b1/* Expected Result is correct logic */)
+          //$display("Result is as Expected");
+        //else
+          //$display("Result is as Wrong");
+          //$error("Wrong Result.\n\tExpeced: %0d Actual: %0d");
         no_transactions++;
-      trans.display("[ Scoreboard ]");
+      //$display("[ Scoreboard ]");
+      //trans.display();
     end
   endtask
   

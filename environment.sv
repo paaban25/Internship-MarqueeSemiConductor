@@ -1,6 +1,8 @@
 `include "transaction.sv"
 `include "generator.sv"
 `include "driver.sv"
+`include "monitor.sv"
+`include "scoreboard.sv"
 
 class environment;
 
@@ -24,7 +26,7 @@ class environment;
     
     gen = new(gen2driv,gen_ended);
     driv = new(fifo_vif,gen2driv);
-    mon  = new(vif,mon2scb);
+    mon  = new(fifo_vif,mon2scb);
     scb  = new(mon2scb);
     
   endfunction

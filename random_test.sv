@@ -6,7 +6,7 @@ program test(fifo_intf intf);
   initial begin
     env = new(intf);
     
-    env.gen.repeat_count = 10;
+    env.gen.repeat_count = 20;
     
     env.run();
     
