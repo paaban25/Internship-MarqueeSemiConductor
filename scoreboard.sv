@@ -13,14 +13,15 @@ class scoreboard;
     transaction trans;
     forever begin
       mon2scb.get(trans);
+      $display("Scoreboard Received Data from mon2scb");
       //if(1'b1/* Expected Result is correct logic */)
           //$display("Result is as Expected");
         //else
           //$display("Result is as Wrong");
           //$error("Wrong Result.\n\tExpeced: %0d Actual: %0d");
         no_transactions++;
-      //$display("[ Scoreboard ]");
-      //trans.display();
+//       $display("[ Scoreboard ]");
+      trans.display();
     end
   endtask
   

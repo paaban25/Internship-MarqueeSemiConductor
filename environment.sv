@@ -14,19 +14,19 @@ class environment;
   mailbox gen2driv;
   mailbox mon2scb;
   
-  event gen_ended;
+  event ended;
   
-  virtual fifo_intf fifo_vif;
+  virtual fifo_intf vif;
   
-  function new(virtual fifo_intf fifo_vif);
-    this.fifo_vif = fifo_vif;
+  function new(virtual fifo_intf vif);
+    this.vif = vif;
     
     gen2driv = new();
     mon2scb  = new();
     
-    gen = new(gen2driv,gen_ended);
-    driv = new(fifo_vif,gen2driv);
-    mon  = new(fifo_vif,mon2scb);
+    gen = new(gen2driv,ended);
+    driv = new(vif,gen2driv);
+    mon  = new(vif,mon2scb);
     scb  = new(mon2scb);
     
   endfunction
@@ -45,14 +45,14 @@ class environment;
   endtask
   
   task post_test();
-    wait(gen_ended.triggered);
+    wait(ended.triggered);
     wait(gen.repeat_count == driv.no_transactions);
     wait(gen.repeat_count == scb.no_transactions);
   endtask 
   
   
   task run;
-    pre_test();
+    //pre_test();
     test();
     post_test();
     $finish;

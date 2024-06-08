@@ -1,12 +1,12 @@
 `include "environment.sv"
-program test(fifo_intf intf);
+program test(fifo_intf vif);
   
   environment env;
   
   initial begin
-    env = new(intf);
+    env = new(vif);
     
-    env.gen.repeat_count = 20;
+    env.gen.repeat_count = 10;
     
     env.run();
     

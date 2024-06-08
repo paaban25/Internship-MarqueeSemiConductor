@@ -8,27 +8,31 @@ module tb_top;
   bit rdclk;
   bit wrclk;
   bit wrst_n, rrst_n;
-  bit wr_en, rd_en;
+//   bit wr_en, rd_en;
 
   //Clock signals
-  always begin  #12 rdclk= ~rdclk; end     
-  always begin  #5 wrclk= ~wrclk; end
+  
   
   
   //Reset Signals
   initial begin
+    rdclk=1'b0;
+    wrclk=1'b0;
     wrst_n=1'b0;
     rrst_n=1'b0;
-    #10 wrst_n=1'b1;
-    #5 rrst_n=1'b1;
+    #30 wrst_n=1'b1;
+    rrst_n=1'b1;
 //     #40 wrst_n=1'b0; 
 //     #5 rrst_n=1'b0;
 //      #10 wrst_n=1'b1;
 //     #5 rrst_n=1'b1;
   end
+  
+  always begin  #25 rdclk= ~rdclk; end     
+  always begin  #10 wrclk= ~wrclk; end
 
   //Enable Signals
-  initial begin
+  //initial begin
 //     #35 rd_en=1'b1; wr_en=1'b0;
 //     #35 rd_en=1'b0; wr_en=1'b1;
 //     #35 rd_en=1'b1; wr_en=1'b0;
@@ -39,31 +43,32 @@ module tb_top;
 //     #35 rd_en=1'b0; wr_en=1'b1;
 //     #35 rd_en=1'b1; wr_en=1'b0;
     
-     #40 wr_en=1'b1;
-    #60 rd_en = 1'b1; 
+//      #40 wr_en=1'b1;
+//     #60 rd_en = 1'b1; 
     
-  end
+  //end
 
   
-  fifo_intf i_intf(wrclk,rdclk,wrst_n,rrst_n,wr_en,rd_en);
-  test t1(i_intf);
+  fifo_intf vif(wrclk,rdclk,wrst_n,rrst_n);
+  test t1(vif);
   
   asynchronous_fifo fifo_instance  (
-    .wrclk(wrclk),
-    .rdclk(rdclk),
-    .wrst_n(wrst_n),
-    .rrst_n(rrst_n),
-    .wr_en(wr_en),
-    .rd_en(rd_en),
-    .data_in(i_intf.data_in),
-    .data_out(i_intf.data_out),
-    .fifo_full(i_intf.fifo_full),
-    .fifo_empty(i_intf.fifo_empty)
+    .wrclk(vif.wrclk),
+    .rdclk(vif.rdclk),
+    .wrst_n(vif.wrst_n),
+    .rrst_n(vif.rrst_n),
+    .wr_en(vif.wr_en),
+    .rd_en(vif.rd_en),
+    .data_in(vif.data_in),
+    .data_out(vif.data_out),
+    .fifo_full(vif.fifo_full),
+    .fifo_empty(vif.fifo_empty)
   );
   
   
   initial begin 
-    $dumpfile("dump.vcd"); $dumpvars;
+    $dumpfile("dump.vcd");
+    $dumpvars;
   end
  
 endmodule
