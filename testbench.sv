@@ -1,7 +1,7 @@
-//29-6
-
 `include "interface.sv"
 `include "random_test.sv"
+// `include "directed_write.sv"
+
 
 module tb_top;
   
@@ -9,27 +9,28 @@ module tb_top;
   bit wrclk;
   bit wrst_n, rrst_n;
 //   bit wr_en, rd_en;
+  parameter RD_CLK_T=50;
+  parameter WR_CLK_T=30;
 
-  //Clock signals
   
   
   
-  //Reset Signals
+
   initial begin
     rdclk=1'b0;
-    wrclk=1'b0;
+    wrclk=1'b1;
     wrst_n=1'b0;
     rrst_n=1'b0;
-    #30 wrst_n=1'b1;
-    rrst_n=1'b1;
+    #72wrst_n=1'b1;
+    #5 rrst_n=1'b1;
 //     #40 wrst_n=1'b0; 
 //     #5 rrst_n=1'b0;
 //      #10 wrst_n=1'b1;
 //     #5 rrst_n=1'b1;
   end
   
-  always begin  #25 rdclk= ~rdclk; end     
-  always begin  #10 wrclk= ~wrclk; end
+  always begin  #(RD_CLK_T/2) rdclk= ~rdclk; end     
+  always begin  #(WR_CLK_T/2) wrclk= ~wrclk; end
 
   //Enable Signals
   //initial begin
@@ -69,6 +70,7 @@ module tb_top;
   initial begin 
     $dumpfile("dump.vcd");
     $dumpvars;
+    #600 $finish;
   end
  
 endmodule

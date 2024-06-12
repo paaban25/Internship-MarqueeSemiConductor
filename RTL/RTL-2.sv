@@ -1,4 +1,4 @@
-//After fixing logical error
+
 
  module wptr_handler #(parameter PTR_WIDTH=3) (
    input wrclk, wrst_n, wr_en,                //condition checked is wr_en not rd_en
@@ -90,7 +90,7 @@ module fifo_mem #(parameter FIFO_DEPTH=8, FIFO_WIDTH=64, PTR_WIDTH=3) ( //mismat
    input fifo_full, fifo_empty,
    output reg [FIFO_WIDTH-1:0] data_out
    );
-   reg [FIFO_WIDTH-1:0] fifo[0:FIFO_DEPTH-1];
+  reg [FIFO_WIDTH-1:0] fifo [0:FIFO_DEPTH-1];
   
    always@(posedge wrclk) begin
      if(wr_en & !fifo_full) begin                    //if(wr_en & fifo_empty) begin

@@ -5,12 +5,15 @@ class driver;
   virtual fifo_intf vif;
   
   mailbox gen2driv;
+  mailbox driv2scb;
   
+  event next;
   
-  function new(virtual fifo_intf vif,mailbox gen2driv);
+  function new(virtual fifo_intf vif,mailbox gen2driv,mailbox driv2scb, event next);
     this.vif = vif;
     this.gen2driv = gen2driv;
-
+    this.driv2scb=driv2scb;
+    this.next = next;
   endfunction
   
   
@@ -23,13 +26,17 @@ class driver;
 //     vif.rd_en=1'b0;
   endtask
   
+transaction trans = new();
+  
   
   task main;
     forever begin
-      transaction trans;
-      $display("Driver got generated data from gen2driv");
+      
       gen2driv.get(trans);
-      @(posedge vif.wrclk);
+      driv2scb.put(trans);
+      $display("Driver got generated data from gen2driv");
+//       gen2driv.get(trans);
+      @(posedge vif.wrclk iff !vif.fifo_full);
       vif.rd_en<=trans.rd_en;
       $display("rd_en signal from driver to interface");
       //@(posedge vif.wrclk);
@@ -37,6 +44,7 @@ class driver;
       vif.data_in<=trans.data_in;
       $display("wr_en and data_in signal from driver to interface");
       no_transactions++;
+//       -> next;
       //vif.wrst_n<=trans.wrst_n;
       
       //@(posedge vif.wrclk);

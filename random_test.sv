@@ -6,7 +6,7 @@ program test(fifo_intf vif);
   initial begin
     env = new(vif);
     
-    env.gen.repeat_count = 10;
+    env.gen.repeat_count = 3;
     
     env.run();
     
