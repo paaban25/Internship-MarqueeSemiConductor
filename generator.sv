@@ -15,7 +15,7 @@ class generator;
       trans = new();
       if (!trans.randomize()) $fatal("Gen:: trans randomization failed"); 
       gen2driv.put(trans);
-      $display("Generated Signal put into mailbox gen2driv");
+//       $display("Generated Signal put into mailbox gen2driv");
       trans.display();
 //       @(next.triggered);
     end

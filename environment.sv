@@ -47,7 +47,7 @@ class environment;
   
   task post_test();
     wait(ended.triggered);
-    @(vif.wrclk)
+    //@(vif.wrclk)
     vif.wr_en <= 0;
     wait(gen.repeat_count == driv.no_transactions);
     wait(gen.repeat_count == scb.no_transactions);

@@ -9,7 +9,7 @@ module tb_top;
   bit wrclk;
   bit wrst_n, rrst_n;
 //   bit wr_en, rd_en;
-  parameter RD_CLK_T=50;
+  parameter RD_CLK_T=20;
   parameter WR_CLK_T=30;
 
   
@@ -21,12 +21,20 @@ module tb_top;
     wrclk=1'b1;
     wrst_n=1'b0;
     rrst_n=1'b0;
-    #72wrst_n=1'b1;
+    #30wrst_n=1'b1;
     #5 rrst_n=1'b1;
+    
+//     #120 wrst_n=1'b0;
+//     #120 wrst_n=1'b1;  		To check for wrst actions    
+    
+//     #300 rrst_n=1'b0;      To check for rrst actions
 //     #40 wrst_n=1'b0; 
 //     #5 rrst_n=1'b0;
 //      #10 wrst_n=1'b1;
 //     #5 rrst_n=1'b1;
+    
+//     #150 wrst_n=1'b0;  rrst_n=1'b0;   To check for rst_n signal actions
+    
   end
   
   always begin  #(RD_CLK_T/2) rdclk= ~rdclk; end     

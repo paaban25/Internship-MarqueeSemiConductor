@@ -34,15 +34,15 @@ transaction trans = new();
       
       gen2driv.get(trans);
       driv2scb.put(trans);
-      $display("Driver got generated data from gen2driv");
+//       $display("Driver got generated data from gen2driv");
 //       gen2driv.get(trans);
       @(posedge vif.wrclk iff !vif.fifo_full);
       vif.rd_en<=trans.rd_en;
-      $display("rd_en signal from driver to interface");
+//       $display("rd_en signal from driver to interface");
       //@(posedge vif.wrclk);
       vif.wr_en<=trans.wr_en;
       vif.data_in<=trans.data_in;
-      $display("wr_en and data_in signal from driver to interface");
+//       $display("wr_en and data_in signal from driver to interface");
       no_transactions++;
 //       -> next;
       //vif.wrst_n<=trans.wrst_n;
